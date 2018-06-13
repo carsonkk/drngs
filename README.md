@@ -1,2 +1,2 @@
 # drngs
-Experimenting with pure/hybrid Deterministic RNGs
+> Experimenting with pure Deterministic RNGs
