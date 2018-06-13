@@ -17,8 +17,9 @@ void msrsa_init(uint32_t s, uint32_t p, uint32_t q, uint32_t l) {
 uint32_t msrsa_gen() {
   uint32_t n = msrsa_p * msrsa_q;
   uint32_t t = (msrsa_p - 1) * (msrsa_q - 1);
-  uint32_t k = (uint32_t) (log((double)n) / log(2));
-  uint32_t e = (msrsa_s % (k / 80));
+  uint32_t k = (uint32_t) (log((double)n) / log(2)) + 1;
+  //uint32_t e = (msrsa_s % (k / 80));
+  uint32_t e = 3;
   uint32_t r = (msrsa_s % (n - 1)) + 1;
   uint32_t x_out = 0;
   uint32_t eg, s, i, j, sz, x_in, x_sz;
