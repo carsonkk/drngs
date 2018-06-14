@@ -1,6 +1,6 @@
 #include "nr.h"
 
-static void vbin(uint32_t, uint32_t, uint32_t *);
+static void vbin(uint32_t, uint32_t, uint32_t **);
 static void vsum(uint32_t *, uint32_t *, uint32_t, uint32_t *);
 static void iprod(uint32_t *, uint32_t *, uint32_t, uint32_t *);
 
@@ -43,13 +43,13 @@ uint32_t nr_gen() {
     rd >>= 1;
   }
   for(i = 0; i < nr_l; i++) {
-    vbin(i, k, b);
+    vbin(i, k, &b);
     vsum(a, b, k, &u);
     v = 1;
     for(j = 0; j < u; j++) {
       v = (v * g) % n;
     }
-    vbin(v, 2*k, d);
+    vbin(v, 2*k, &d);
     iprod(r, d, k, &w);
     x_out <<=1;
     x_out |= w;
@@ -70,11 +70,11 @@ double nr_rand() {
   return ((nr_gen() & (((1 << 30) - 1) << 16)) >> 16) / (double) ((1 << 16) - 1);
 }
 
-static void vbin(uint32_t u, uint32_t k, uint32_t *o) {
+static void vbin(uint32_t u, uint32_t k, uint32_t **o) {
   uint32_t i;
 
   for(i = 0; i < k; i++) {
-    o[k-i-1] = u % 2;
+    (*o)[k-i-1] = u % 2;
     u >>= 1;
   }
 }

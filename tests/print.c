@@ -11,11 +11,11 @@
 #include "nr.h"
 
 int main(int argc, char *argv[]) {
-  time_t seed = time(NULL);
-  uint32_t lcg_ansi[3] = {1103515245, 12345, 0x80000000};
   uint32_t p = 2017;
   uint32_t q = 1153;
   uint32_t l = 32;
+  uint32_t lcg_ansi[3] = {1103515245, 12345, 0x80000000};
+  time_t seed = time(NULL);
 
   lcg_init(seed, lcg_ansi[0], lcg_ansi[1], lcg_ansi[2]);
   bbs_init(seed, p, q, l);
