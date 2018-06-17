@@ -7,12 +7,8 @@ static int           bindicate_i(double);
 static unsigned long  bmin = 0;
 static unsigned long  bmax = (unsigned long)RAND_MAX;
 static unsigned long  bumax = (unsigned long)RAND_MAX;
-static unsigned long  bucsz = (unsigned long)RAND_MAX;
 static unsigned long  bus = 0;
-static unsigned long  buc = 0;
 static unsigned long *bua;
-static unsigned long *bum;
-static unsigned long *bub;
 
 /*
   Set the minimum value for the range
@@ -20,7 +16,6 @@ static unsigned long *bub;
 void bsetn(unsigned long nmin) {
   if(nmin < bmax) {
     bmin = nmin;
-    bucsz = bmax - bmin;
   }
 }
 
@@ -31,7 +26,6 @@ void bsetx(unsigned long nmax) {
   if(nmax > bmin) {
     bmax = nmax;
     bumax = bmax;
-    bucsz = bmax - bmin;
   }
 }
 
@@ -43,16 +37,6 @@ void bsetnx(unsigned long nmin, unsigned long nmax) {
     bmin = nmin;
     bmax = nmax;
     bumax = bmax;
-    bucsz = bmax - bmin;
-  }
-}
-
-/*
-  Set the cache size for the range
-*/
-void bsetc(unsigned long ncsz) {
-  if(ncsz <= bmax-bmin) {
-    bucsz = ncsz;
   }
 }
 
@@ -62,10 +46,6 @@ void bsetc(unsigned long ncsz) {
 void bcln() {
   if(bus != 0) {
     free(bua);
-  }
-  if(buc != 0) {
-    free(bum);
-    free(bub);
   }
 }
 
@@ -129,51 +109,6 @@ unsigned long brandus() {
     bua[ri+i] = bua[ri+i+1];
   }
   bumax--;
-  return rt;
-}
-
-/*
-  Generate a stream of random values
-  Use a MRU cache to ensure a level of relative uniqueness
-  When the cache is full, evict LRU values
-  For a range of size N with a cache size of S, the following apply:
-  - O(S) memory used
-  - O(S/2) lookup on average
-  - O(1) update
-*/
-unsigned long *branduc() {
-  unsigned long i, rt;
-
-  if(buc == 0) {
-    bum = malloc(bucsz*sizeof(unsigned long));
-    bub = malloc(bucsz*sizeof(unsigned long));
-    memset(bum, 0, bucsz);
-    memset(bub, 0, bucsz);
-    buc++;
-  }
-  rt = brand();
-
-  i = buc/2;
-  while(1) {
-    if(bub[i] < rt) {
-      if(bub[i+1] > rt) {
-        for(j = buc; j > i; j--) {
-          bub[j] =
-        }
-      }
-      else {
-        i += i/2;
-      }
-    }
-    else if(num[i] > rt) {
-      i -= i/2;
-    }
-  }
-
-
-  bum[buc-1] = rt;
-
-  buc++;
   return rt;
 }
 
