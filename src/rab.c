@@ -45,7 +45,3 @@ uint32_t rab_gen() {
 double rab_rand() {
   return ((rab_gen() & (((1 << 30) - 1) << 16)) >> 16) / (double) ((1 << 16) - 1);
 }
-
-/*
-https://en.wikipedia.org/wiki/Rabin_cryptosystem
-*/

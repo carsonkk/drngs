@@ -56,7 +56,3 @@ uint32_t msrsa_gen() {
 double msrsa_rand() {
   return ((msrsa_gen() & (((1 << 30) - 1) << 16)) >> 16) / (double) ((1 << 16) - 1);
 }
-
-/*
-https://simple.wikipedia.org/wiki/RSA_algorithm
-*/

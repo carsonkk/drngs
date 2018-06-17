@@ -87,8 +87,8 @@ double brandd() {
   When all values in the range have been generated, clear the cache and reset
   For a range of size N, the following apply:
   - O(N) memory used
-  - O(N/2) lookup on average
-  - O(1) update
+  - O(1) lookup
+  - O(N/2) update on average
 */
 unsigned long brandus() {
   unsigned long i, ri, rt;

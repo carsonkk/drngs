@@ -27,9 +27,9 @@ int main(int argc, char *argv[]) {
 
   lcg_init(seed, lcg_ansi[0], lcg_ansi[1], lcg_ansi[2]);
   bbs_init(seed, p, q, l);
+  rab_init(seed, p, q, l);
   rsa_init(seed, p, q, l);
   msrsa_init(seed, p, q, l);
-  rab_init(seed, p, q, l);
   pg_init(seed, l);
   nr_init(seed, p, q, l);
 
@@ -83,6 +83,15 @@ static void timed(uint32_t amt, uint32_t *idx, uint32_t **sec, uint32_t **msec) 
 
   start = clock();
   for(i = 0; i < amt; i++) {
+    rab_rand();
+  }
+  diff = clock() - start;
+  (*sec)[*idx] = (uint32_t)((long double)diff / CLOCKS_PER_SEC);
+  (*msec)[*idx] = (uint32_t)((((long double)diff * 1000.0) / CLOCKS_PER_SEC)) % 1000;
+  *idx += 1;
+
+  start = clock();
+  for(i = 0; i < amt; i++) {
     rsa_rand();
   }
   diff = clock() - start;
@@ -93,15 +102,6 @@ static void timed(uint32_t amt, uint32_t *idx, uint32_t **sec, uint32_t **msec) 
   start = clock();
   for(i = 0; i < amt; i++) {
     msrsa_rand();
-  }
-  diff = clock() - start;
-  (*sec)[*idx] = (uint32_t)((long double)diff / CLOCKS_PER_SEC);
-  (*msec)[*idx] = (uint32_t)((((long double)diff * 1000.0) / CLOCKS_PER_SEC)) % 1000;
-  *idx += 1;
-
-  start = clock();
-  for(i = 0; i < amt; i++) {
-    rab_rand();
   }
   diff = clock() - start;
   (*sec)[*idx] = (uint32_t)((long double)diff / CLOCKS_PER_SEC);

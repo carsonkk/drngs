@@ -42,8 +42,3 @@ uint32_t bbs_gen() {
 double bbs_rand() {
   return ((bbs_gen() & (((1 << 30) - 1) << 16)) >> 16) / (double) ((1 << 16) - 1);
 }
-
-/*
-https://en.wikipedia.org/wiki/Blum_Blum_Shub
-https://www.cs.indiana.edu/~kapadia/project2/node11.html
-*/

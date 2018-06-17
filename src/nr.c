@@ -101,7 +101,3 @@ static void iprod(uint32_t *v, uint32_t *w, uint32_t k, uint32_t *o) {
   }
   *o %= 2;
 }
-
-/*
-https://en.wikipedia.org/wiki/Naor%E2%80%93Reingold_pseudorandom_function
-*/

@@ -26,7 +26,3 @@ uint32_t lcg_gen() {
 double lcg_rand() {
   return ((lcg_gen() & (((1 << 30) - 1) << 16)) >> 16) / (double) ((1 << 16) - 1);
 }
-
-/*
-https://en.wikipedia.org/wiki/Linear_congruential_generator
-*/

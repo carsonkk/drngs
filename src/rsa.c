@@ -48,7 +48,3 @@ uint32_t rsa_gen() {
 double rsa_rand() {
   return ((rsa_gen() & (((1 << 30) - 1) << 16)) >> 16) / (double) ((1 << 16) - 1);
 }
-
-/*
-https://simple.wikipedia.org/wiki/RSA_algorithm
-*/
